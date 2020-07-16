@@ -25,8 +25,7 @@ class Auth extends CI_Controller
         ); 
         $this->form_validation->set_rules('username', 'Username', 'trim|required');
         $this->form_validation->set_rules('password', 'Password', 'trim|required');
-         ///////////////// Condition //////////////
-        // Comand ini untuk mematikan G-Captcha
+         
         $dataIsi = array('script_captcha' => $this->recaptcha->getScriptTag());
         $recaptcha = $this->input->post('g-recaptcha-response');
         if(isset($recaptcha)){
@@ -43,10 +42,9 @@ class Auth extends CI_Controller
                     $this->load->view('templates/footer-login');
                 }
                 else {
-        // Sampai Sini
                     $username = $this->input->post('username');
                     $password = $this->input->post('password');
-                    $user = $this->db->where(['username'=>$username])->or_where(['email' => $username])->get('tbl_loginppdb')->row_array();
+                    //$user = $this->db->where(['username'=>$username])->or_where(['email' => $username])->get('tbl_loginppdb')->row_array();
                     $users = $this->db->where(['username'=>$username])->or_where(['email' => $username])->get('tbl_login')->row_array();
                     if ($user) {
                         if ($user['active'] == 1) {
